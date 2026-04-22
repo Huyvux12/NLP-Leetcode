@@ -3,6 +3,7 @@
 (function () {
   const TOKEN_KEY = "nlp-leetcode:token";
   const USER_KEY = "nlp-leetcode:user";
+  const API_BASE_URL = "https://nlp-leetcode-production.up.railway.app";
 
   const api = {
     // ---------- auth state ----------
@@ -39,9 +40,9 @@
 
       let res;
       try {
-        res = await fetch(path, { ...options, headers });
+        res = await fetch(API_BASE_URL + path, { ...options, headers });
       } catch (networkErr) {
-        throw new Error("Không kết nối được backend. Đảm bảo `docker compose up` đang chạy.");
+        throw new Error("Không kết nối được backend (Railway).");
       }
 
       if (res.status === 401) {

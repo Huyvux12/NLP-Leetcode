@@ -140,6 +140,13 @@
       Tab: (cm) => cm.replaceSelection("    ", "end"),
     },
   });
+
+  // Fix CodeMirror line height mismatch when custom web fonts finish loading
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => editor.refresh());
+  } else {
+    setTimeout(() => editor.refresh(), 500);
+  }
   editor.on("change", debounce(() => {
     localStorage.setItem(CODE_KEY(problem.id), editor.getValue());
   }, 300));
